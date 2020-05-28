@@ -1,0 +1,7 @@
+name: Main
+version: ${project.version}
+main: com.andre.build.main.Main
+api-version: 1.13
+depend: [Vault]
+commands:
+  createnpc:
