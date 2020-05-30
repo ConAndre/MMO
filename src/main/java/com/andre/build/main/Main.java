@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.andre.build.main.Listeners.*;
 
-
 import com.andre.build.main.Npcs.NPCBlockShop;
 import com.andre.build.main.Npcs.NPCDropTable;
 import com.andre.build.main.Npcs.NPCDungeon;
@@ -55,7 +54,6 @@ public class Main extends JavaPlugin implements Listener {
         setupPermissions();
         setupChat();
     }
-
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -95,4 +93,5 @@ public class Main extends JavaPlugin implements Listener {
     public static Chat getChat() {
         return chat;
     }
+
 }
