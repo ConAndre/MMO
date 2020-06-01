@@ -37,7 +37,7 @@ public class NPCDungeon implements Listener {
         MineSkinFetcher.fetchSkinFromIdAsync(1236205815, skin -> {
             dungeonNPC = npcLib.createNPC(Arrays.asList( ChatColor.RED + "" + ChatColor.BOLD + "Dungeons", ChatColor.GRAY + "" + ChatColor.BOLD + "Click to enter a dungeon"));
             dungeonNPC.setLocation(new Location(Bukkit.getWorlds().get(0), 748.5,63, -179.5, -180, 0));
-            dungeonNPC.setItem(NPCSlot.MAINHAND, new ItemStack(Material.IRON_SWORD));
+//            dungeonNPC.setItem(NPCSlot.MAINHAND, new ItemStack(Material.IRON_SWORD));
             dungeonNPC.setSkin(skin);
             dungeonNPC.create();
         });

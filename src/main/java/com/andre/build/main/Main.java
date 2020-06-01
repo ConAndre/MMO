@@ -2,11 +2,10 @@ package com.andre.build.main;
 
 import java.util.logging.Logger;
 
+import com.andre.build.main.Commands.CommandReroll;
 import com.andre.build.main.Listeners.*;
 
-import com.andre.build.main.Npcs.NPCBlockShop;
-import com.andre.build.main.Npcs.NPCDropTable;
-import com.andre.build.main.Npcs.NPCDungeon;
+import com.andre.build.main.Npcs.*;
 import net.jitse.npclib.NPCLib;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -21,8 +20,14 @@ public class Main extends JavaPlugin implements Listener {
 
     private NPCLib library;
     private static NPCDungeon npcDungeon;
+    private static NPCDungeon1 npcDungeon1;
+    private static NPCDungeon2 npcDungeon2;
+    private static NPCDungeon3 npcDungeon3;
+    private static NPCDungeon4 npcDungeon4;
+    private static NPCRaid npcRaid;
     private static NPCDropTable npcDropTable;
     private static NPCBlockShop npcBlockShop;
+    private static NPCEnchant npcEnchant;
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
@@ -36,15 +41,10 @@ public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.library = new NPCLib(this);
-        this.npcDungeon = new NPCDungeon(this);
-        this.npcDropTable = new NPCDropTable(this);
-        this.npcBlockShop = new NPCBlockShop(this);
-        Bukkit.getPluginManager().registerEvents(new Durabilityhandler(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathHelp(), this);
-        Bukkit.getPluginManager().registerEvents(new AttackSpeedhandler(), this);
-        Bukkit.getPluginManager().registerEvents(new Hungerhandler(), this);
-        Bukkit.getPluginManager().registerEvents(new MobDeathhandler(), this);
+        EnableListeners();
+        EnableNPC();
+
+//        this.getCommand("reroll").setExecutor(new CommandReroll()); // not sure how to handle this
 
         if (!setupEconomy() ) {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -54,6 +54,29 @@ public class Main extends JavaPlugin implements Listener {
         setupPermissions();
         setupChat();
     }
+
+    private void EnableNPC() {
+        this.library = new NPCLib(this);
+        this.npcDungeon = new NPCDungeon(this);
+        this.npcDungeon1 = new NPCDungeon1(this);
+        this.npcDungeon2 = new NPCDungeon2(this);
+        this.npcDungeon3 = new NPCDungeon3(this);
+        this.npcDungeon4 = new NPCDungeon4(this);
+        this.npcRaid = new NPCRaid(this);
+        this.npcDropTable = new NPCDropTable(this);
+        this.npcBlockShop = new NPCBlockShop(this);
+        this.npcEnchant = new NPCEnchant(this);
+    }
+
+    private void EnableListeners() {
+        Bukkit.getPluginManager().registerEvents(new Durabilityhandler(), this);
+        Bukkit.getPluginManager().registerEvents(new CommandListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathHelp(), this);
+        Bukkit.getPluginManager().registerEvents(new AttackSpeedhandler(), this);
+        Bukkit.getPluginManager().registerEvents(new Hungerhandler(), this);
+        Bukkit.getPluginManager().registerEvents(new MobDeathhandler(), this);
+    }
+
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;

@@ -5,5 +5,4 @@ api-version: 1.13
 depend: [Vault]
 commands:
   createnpc:
-  EnchanterNPC:
-    
+  reroll:
